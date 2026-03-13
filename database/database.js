@@ -1,5 +1,5 @@
 import mongoose, { mongo }  from "mongoose";
-import { config } from "../config";
+import { config } from "../config.js";
 
 //Connect es una orden, de que se conecte aca
 mongoose.connect(config.db.URI);
