@@ -17,14 +17,14 @@ productsController.insertProducts = async(req, response) =>{
 
 productsController.updateProducts = async (req, response) => {
   const {name, description, price, stock} = req.body
-  await productsSchema.findByIdAndUpdate(req.params.find, {
+  await productsSchema.findByIdAndUpdate(req.params.id, {
     name, description, price, stock
   }, {new: true})
   response.json({message: "product updated"})
 }
 
 productsController.deletProduct = async (req, response) => {
-  await productsSchema.findByIdAndDelete(req.params.find)
+  await productsSchema.findByIdAndDelete(req.params.id)
   response.json({message: "product deleted"})
 }
 
