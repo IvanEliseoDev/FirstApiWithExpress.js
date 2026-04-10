@@ -1,7 +1,7 @@
 import providerModel from "../../models/providerModel.js";
 
 
-const providerController = {};
+export const providerController = {};
  
 providerController.getProvider = async (req, res) => {
     try {
