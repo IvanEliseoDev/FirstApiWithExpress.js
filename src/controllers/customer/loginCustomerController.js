@@ -29,6 +29,17 @@ loginCustomerController.login = async(req, res)  =>{
         customerExist.loginAttemps = 0
         customerExist.timeOut = null
         await customerExist.save()
+        const token = jsonwebtoken.sign(
+            //Que vamos a guardar 
+            {id: customerExist.id, userType: "Customer"},
+            //Secret Key
+            config.jwt.secret,
+            //Cuando Expira
+            {expiresIn: "30d"}
+        )
+        res.cookie("authCookie", token)
+        //LIsto
+        return res.status(200).json({message: "Inicio de Sesion Exitoso"})
     }catch(error){
         console.log(error)
         return res.status(500).json({message: "Internal Server Error - Check Server Logs"})
