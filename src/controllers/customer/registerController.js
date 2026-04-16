@@ -81,7 +81,7 @@ registerController.verifyCode = async(req, res) => {
     try{
 
         const {verificationCodeRequest} = req.body
-        const token = req.cookies.verificationToken
+        const token = req.cookies.VerificationToken
 
         const decoded = jsonwebtoken.verify(token, config.jwt.secret)
         const {email, verificationCode: storedCode} = decoded
@@ -92,7 +92,7 @@ registerController.verifyCode = async(req, res) => {
         customer.isVerified = true
         await customer.save()    
 
-        res.clearCookie("verificationToken")
+        res.clearCookie("VerificationToken")
 
         res.json({message: "Email verified successfuly"})
     }catch(error){
