@@ -7,6 +7,8 @@ import routerProvider from "./src/routes/provider/providerRoute.js"
 import { routerCustomer } from "./src/routes/cutomer/customerRoutes.js";
 import { registerCustomerRouter } from "./src/routes/cutomer/registerRoute.js";
 import cookieParser from "cookie-parser";
+import { loginCustomerRouter } from "./src/routes/cutomer/loginCustomerRoute.js";
+import { logOutCustomerRouter } from "./src/routes/cutomer/logOutCustomerRoute.js";
 
 const app = express();
 app.use(cookieParser())
@@ -18,5 +20,7 @@ app.use("/api/v1/reviews",routerReview)
 app.use("/api/v1/provider", routerProvider)
 app.use("/api/v1/customer", routerCustomer )
 app.use("/api/v1/registerCustomer", registerCustomerRouter)
+app.use("/api/v1/customerLogin", loginCustomerRouter)
+app.use("/api/v1/customerLogOut", logOutCustomerRouter)
 export default app;
 

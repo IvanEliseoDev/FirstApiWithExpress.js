@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import crypto from "crypto"
 import jsonwebtoken from "jsonwebtoken"
 
-const loginCustomerController = []
+export const loginCustomerController = []
 loginCustomerController.login = async(req, res)  =>{
     try{
         const {email, password} = req.body
