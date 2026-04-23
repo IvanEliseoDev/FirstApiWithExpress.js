@@ -1,8 +1,8 @@
 import { config } from "../../../config.js";
 import { CustomerModel } from "../../models/customerModel.js";
 import crypto from "crypto";
+import bcrypt from "bcrypt"
 import jsonwebtoken from "jsonwebtoken";
-import { error } from "console";
 import nodemailer from "nodemailer";
 import { HTMLRecoveryEmail } from "../../utils/sendMailerRecovery.js";
 
@@ -67,6 +67,26 @@ recoveryPasswordController.verifiedCode = async(req, res) => {
         return res.status(200).json({message: "Verified Code successfully"})
     }catch(error){
         console.log(error)
+        return res.status(500).json({message: "Internal Server Error - Check Server Logs"})
+    }
+}
+recoveryPasswordController.newPassword = async(req, res) => {
+    try {
+        const {newPassword, confirmNewPassword} = req.body
+        if(newPassword !== confirmNewPassword) return res.status(400).json({message: "Password doesnt match"})
+        const token = req.cookie.recoveryCookie
+        const decoded = jsonwebtoken.verify(token, config.jwt.secret)
+        if(!decoded.verified)return res.status(400).json({message: "Code not Verified"})
+        const passwordHas = await bcrypt.hash(newPassword, 10)
+        await CustomerModel.findOneAndUpdate(
+            {email: decoded.emai},
+            {password: passwordHas},
+            {new: true}
+        )
+        res.clearCookie("recoverCookie")
+        return res.status(200).json({message: "Password Updated"})
+    } catch (error) {
+         console.log(error)
         return res.status(500).json({message: "Internal Server Error - Check Server Logs"})
     }
 }
