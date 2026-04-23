@@ -1,7 +1,6 @@
 import { config } from "../../../config.js";
 import { CustomerModel } from "../../models/customerModel.js";
 import bcrypt from "bcrypt"
-import crypto from "crypto"
 import jsonwebtoken from "jsonwebtoken"
 
 export const loginCustomerController = []
@@ -23,7 +22,7 @@ loginCustomerController.login = async(req, res)  =>{
             return res.status(403).json({message: "Tu cuenta a sido Bloqueada por exceder el limite de intentos"})
           }
           await customerExist.save()
-          return res.tatus(401).json({message: "Contraseña Incorrecta"})
+          return res.status(401).json({message: "Contraseña Incorrecta"})
         }
         //SI escribe bien la contraseña se reiniciaran los intentos
         customerExist.loginAttemps = 0

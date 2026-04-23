@@ -22,5 +22,6 @@ app.use("/api/v1/customer", routerCustomer )
 app.use("/api/v1/registerCustomer", registerCustomerRouter)
 app.use("/api/v1/customerLogin", loginCustomerRouter)
 app.use("/api/v1/customerLogOut", logOutCustomerRouter)
+app.use("/api/v1/recoveryPassword")
 export default app;
 
