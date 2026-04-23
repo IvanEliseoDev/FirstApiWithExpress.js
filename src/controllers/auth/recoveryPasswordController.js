@@ -6,7 +6,7 @@ import jsonwebtoken from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import { HTMLRecoveryEmail } from "../../utils/sendMailerRecovery.js";
 
-const recoveryPasswordController = [];
+export const recoveryPasswordController = [];
 recoveryPasswordController.requestCode = async (req, res) => {
   try {
     const { email } = req.body;
