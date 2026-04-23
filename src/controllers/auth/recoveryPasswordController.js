@@ -53,8 +53,20 @@ recoveryPasswordController.requestCode = async (req, res) => {
 };
 recoveryPasswordController.verifiedCode = async(req, res) => {
     try{
-
+        const {codeRequest} = req.body
+        if(!codeRequest || codeRequest.length <= 0 ) return res.status(403).json({message: "Bad Request - The codeRequest is Empty"})
+        const token = req.cookie.recoveryCookie
+        const decoded = jsonwebtoken.verify(token, config.jwt.secret)
+        if(codeRequest != decoded.code)return res.status(400).json({message: "invalid code"})
+        const newToken = jsonwebtoken.sign(
+         {email: decoded.email, userType: "customer", verified: true},
+         config.jwt.secret,
+         {expiresIn: "15m"}
+        )
+        res.cookie("recoveryCookie", newToken, {maxAge: 15 *60 *1000})
+        return res.status(200).json({message: "Verified Code successfully"})
     }catch(error){
-        
+        console.log(error)
+        return res.status(500).json({message: "Internal Server Error - Check Server Logs"})
     }
 }
