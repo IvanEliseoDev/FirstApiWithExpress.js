@@ -10,8 +10,14 @@ import cookieParser from "cookie-parser";
 import { loginCustomerRouter } from "./src/routes/cutomer/loginCustomerRoute.js";
 import { logOutCustomerRouter } from "./src/routes/cutomer/logOutCustomerRoute.js";
 import { recoveryPasswordRoute } from "./src/routes/auth/recoveryPasswordRoute.js";
-
+import { limit } from "./src/middlewares/limits/rateLimitMiddlewares.js";
+import cors from "cors"
 const app = express();
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials:  true
+}))
+app.use(limit)
 app.use(cookieParser())
 app.use(express.json())
 app.use("/api/v1/products",routerProduct)
