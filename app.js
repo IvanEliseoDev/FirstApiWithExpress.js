@@ -13,6 +13,7 @@ import { recoveryPasswordRoute } from "./src/routes/auth/recoveryPasswordRoute.j
 import { limit } from "./src/middlewares/limits/rateLimitMiddlewares.js";
 import cors from "cors"
 import { bannerRouter } from "./src/routes/banner/bannerRouter.js";
+import { cartRouter } from "./src/routes/cart/cartRouter.js";
 const app = express();
 app.use(cors({
     origin: "http://localhost:5173",
@@ -32,5 +33,6 @@ app.use("/api/v1/registerCustomer", registerCustomerRouter)
 app.use("/api/v1/customerLogin", loginCustomerRouter)
 app.use("/api/v1/customerLogOut", logOutCustomerRouter)
 app.use("/api/v1/recoveryPassword", recoveryPasswordRoute)
+app.use("/api/v1/cart", cartRouter)
 export default app;
 

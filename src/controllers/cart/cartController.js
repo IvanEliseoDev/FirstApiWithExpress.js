@@ -104,4 +104,14 @@ export const cartController = {
       return res.status(500).json({ status: 500, message: "Internal Server Error" });
     }
   },
+  deleteCar: async(req, res) => {
+    try {
+        const cart = await cartModel.findByIdAndDelete(req.params.id)
+        if(!cart) return res.status(404).json({status:404, message: "El carrito no existe, no se logro eliminar", data:null})
+        return res.status(204).json({status:204, message:"Carrito eliminado exitosamente", data: null})
+    } catch (error) {
+        console.error("Error al insertar carrito:", error);
+        return res.status(500).json({ status: 500, message: "Internal Server Error" });
+    }
+  }
 };
