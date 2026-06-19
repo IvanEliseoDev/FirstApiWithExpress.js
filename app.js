@@ -14,6 +14,7 @@ import { limit } from "./src/middlewares/limits/rateLimitMiddlewares.js";
 import cors from "cors"
 import { bannerRouter } from "./src/routes/banner/bannerRouter.js";
 import { cartRouter } from "./src/routes/cart/cartRouter.js";
+
 const app = express();
 app.use(cors({
     origin: "http://localhost:5173",
